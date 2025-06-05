@@ -1,7 +1,7 @@
-From ae88621918d88f2d953676a97e70481d580162fa Mon Sep 17 00:00:00 2001
+From 4473d9ae74a4fd47b246d4babb484b052faf650b Mon Sep 17 00:00:00 2001
 From: Masahito S <firelzrd@gmail.com>
-Date: Wed, 4 Jun 2025 20:22:13 +0900
-Subject: [PATCH] linux6.15.0-parallel-swapper-v0.2
+Date: Thu, 5 Jun 2025 10:14:19 +0900
+Subject: [PATCH] linux6.15.0-parallel-swapper-v0.2a
 
 ---
  include/linux/swap.h |   5 +
@@ -25,7 +25,7 @@ index db46b25a65..3c684a80a7 100644
  #endif /* __KERNEL__*/
  #endif /* _LINUX_SWAP_H */
 diff --git a/mm/page_io.c b/mm/page_io.c
-index 4bce19df55..5822ae92d2 100644
+index 4bce19df55..3a07c76ae2 100644
 --- a/mm/page_io.c
 +++ b/mm/page_io.c
 @@ -25,6 +25,9 @@
@@ -43,7 +43,7 @@ index 4bce19df55..5822ae92d2 100644
  }
  
 +int sysctl_parallel_swap = 1;
-+int sysctl_parallel_swap_factor = 1;
++int sysctl_parallel_swap_factor = 6;
 +
 +struct numa_swapout_info {
 +	struct kfifo fifo;
@@ -62,7 +62,7 @@ index 4bce19df55..5822ae92d2 100644
 +	int nid;
 +	struct numa_swapout_info *nsi;
 +
-+	printk(KERN_INFO "Parallel Swapper 0.2 by Masahito Suzuki (forked from Kcompressd by Qun-Wei Lin from MediaTek)");
++	printk(KERN_INFO "Parallel Swapper 0.2a by Masahito Suzuki (forked from Kcompressd by Qun-Wei Lin from MediaTek)");
 +
 +	numa_swapout_infos = kcalloc(
 +		nr_node_ids, sizeof(struct numa_swapout_info), GFP_KERNEL);
@@ -271,10 +271,10 @@ index 4bce19df55..5822ae92d2 100644
  		count_mthp_stat(folio_order(folio), MTHP_STAT_ZSWPOUT);
  		folio_unlock(folio);
 diff --git a/mm/vmscan.c b/mm/vmscan.c
-index 75f48ea2b3..1c4825d0d6 100644
+index 3783e45bfc..19a569a7ac 100644
 --- a/mm/vmscan.c
 +++ b/mm/vmscan.c
-@@ -7584,6 +7584,8 @@ void __meminit kswapd_run(int nid)
+@@ -7433,6 +7433,8 @@ void __meminit kswapd_run(int nid)
  		} else {
  			wake_up_process(pgdat->kswapd);
  		}
@@ -283,7 +283,7 @@ index 75f48ea2b3..1c4825d0d6 100644
  	}
  	pgdat_kswapd_unlock(pgdat);
  }
-@@ -7602,6 +7604,8 @@ void __meminit kswapd_stop(int nid)
+@@ -7451,6 +7453,8 @@ void __meminit kswapd_stop(int nid)
  	if (kswapd) {
  		kthread_stop(kswapd);
  		pgdat->kswapd = NULL;
@@ -292,7 +292,7 @@ index 75f48ea2b3..1c4825d0d6 100644
  	}
  	pgdat_kswapd_unlock(pgdat);
  }
-@@ -7616,6 +7620,22 @@ static const struct ctl_table vmscan_sysctl_table[] = {
+@@ -7465,6 +7469,22 @@ static const struct ctl_table vmscan_sysctl_table[] = {
  		.extra1		= SYSCTL_ZERO,
  		.extra2		= SYSCTL_TWO_HUNDRED,
  	},
