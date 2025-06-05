@@ -48,6 +48,9 @@ To configure 2 workers with a maximum queue depth (e.g., 2 * 6 * X, considering 
 # sysctl vm.parallel_swap_factor=6
 ```
 
+## Known Problem(s)
+As well as Kcompressd does, also parallel-swapper currently suffers from system hangup cases caused by **Intel graphics driver**. (confirmed on Linux 6.15.0, Kaby Lake processor)
+
 ## Contributions
 This project was built upon the ideas of kcompressd by Qun-Wei Lin from MediaTek.
 
