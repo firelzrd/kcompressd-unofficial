@@ -32,7 +32,7 @@ This mechanism tries to ensure that requests submitted earlier are always proces
 
 ## Sysctl Tunable
 Swapout parallelism can be tuned using sysctl.
-- `vm.kcompressd` (range: 0-256, default: 6)
+- `vm.kcompressd` (range: 0-256, default: 24)
 Sets the maximum FIFO queue depth.
 
 ## Known Problem(s)
