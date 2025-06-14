@@ -35,9 +35,6 @@ Swapout parallelism can be tuned using sysctl.
 - `vm.kcompressd` (range: 0-256, default: 24)
 Sets the maximum FIFO queue depth.
 
-## Known Problem(s)
-As well as Kcompressd does, also Kcompressd-Unofficial currently suffers from system hangup cases caused by **Intel graphics driver**. (confirmed on Linux 6.15.0, Kaby Lake processor)
-
 ## Contributions
 This project was built upon the ideas of Kcompressd by Qun-Wei Lin from MediaTek.
 
