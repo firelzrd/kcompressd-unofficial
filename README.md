@@ -26,7 +26,7 @@ This mechanism tries to ensure that requests submitted earlier are always proces
     sysctl -w vm.kcompressd=0
     ```
     When `vm.kcompressd` is set to 0, Kcompressd-Unofficial's asynchronous processing is bypassed, and memory compression/swapout tasks revert to being handled synchronously by kswapd, similar to the behavior of an unpatched kernel. This feature is valuable for:
-    *   Troubleshooting system behavior or isolating issues (e.g., when investigating the known Intel graphics driver problem).
+    *   Troubleshooting system behavior or isolating issues.
     *   Performance comparison against the default kernel's memory management.
     *   Temporarily disabling the feature if a specific workload does not benefit from it.
 
