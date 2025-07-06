@@ -1,7 +1,7 @@
-From cfb8df75f010cad3d43ac9bd1eb41fe83520f847 Mon Sep 17 00:00:00 2001
+From 4a87f0c12497f95aadc86fdf6522bd2ea037f72a Mon Sep 17 00:00:00 2001
 From: Masahito S <firelzrd@gmail.com>
-Date: Sun, 15 Jun 2025 03:37:19 +0900
-Subject: [PATCH] Kcompressd-Unofficial v0.5
+Date: Mon, 7 Jul 2025 06:30:58 +0900
+Subject: [PATCH] linux6.15.5-kcompressd-unofficial-0.5
 
 ---
  include/linux/mmzone.h |   7 +++
@@ -232,7 +232,7 @@ index 4bce19df55..e82fe750ee 100644
  {
  #ifdef CONFIG_TRANSPARENT_HUGEPAGE
 diff --git a/mm/swap.h b/mm/swap.h
-index 6f4a3f927e..3579da413d 100644
+index ca4d7abfaf..26d4fa5547 100644
 --- a/mm/swap.h
 +++ b/mm/swap.h
 @@ -22,6 +22,7 @@ static inline void swap_read_unplug(struct swap_iocb *plug)
@@ -243,7 +243,7 @@ index 6f4a3f927e..3579da413d 100644
  
  /* linux/mm/swap_state.c */
  /* One swap address space for each 64M swap space */
-@@ -199,6 +200,11 @@ static inline int swap_zeromap_batch(swp_entry_t entry, int max_nr,
+@@ -165,6 +166,11 @@ static inline int swap_writepage(struct page *p, struct writeback_control *wbc)
  	return 0;
  }
  
@@ -252,9 +252,9 @@ index 6f4a3f927e..3579da413d 100644
 +	return 0;
 +}
 +
- #endif /* CONFIG_SWAP */
- 
- #endif /* _MM_SWAP_H */
+ static inline void swapcache_clear(struct swap_info_struct *si, swp_entry_t entry, int nr)
+ {
+ }
 diff --git a/mm/vmscan.c b/mm/vmscan.c
 index 3783e45bfc..8873a2f308 100644
 --- a/mm/vmscan.c
